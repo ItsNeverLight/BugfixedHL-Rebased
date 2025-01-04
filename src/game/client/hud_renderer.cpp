@@ -130,4 +130,19 @@ void CHudRenderer::DrawSprite(int frame, float x, float y, float width, float he
 	gEngfuncs.pTriAPI->End();
 
 	gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
+
+	AdjustSubRect();
+}
+
+void AdjustSubRect(mspriteframe_t *pFrame,
+	float *left, float *right, float *top, float *bottom, // Normalized texture coordinates
+	int *pw, int *ph, const wrect_t *prc)
+{
+	float width = pFrame->width;
+	float height = pFrame->height;
+	
+	*left =   (prc->left + 0.5) / width;
+	*right =  (prc->right - 0.5) / width;
+	*top =    (prc->top + 0.5) / height;
+	*bottom = (prc->bottom - 0.5) / height;
 }
